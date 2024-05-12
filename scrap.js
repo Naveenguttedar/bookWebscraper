@@ -33,7 +33,7 @@ async function scrap() {
     (idx, ele) => (bookList[idx].availability = $(ele).text().trim()),
   );
   //writing data to excel file...
-  let r = await writeXlsxFile(bookList, {
+  await writeXlsxFile(bookList, {
     schema,
     filePath: filepath,
   });
@@ -45,28 +45,20 @@ const schema = [
     column: "PRODUCT(book)",
     type: String,
     value: (book) => book.title,
+    width: 50,
+    wrap: true,
   },
   {
     column: "PRICE",
     type: String,
+    align: "center",
     value: (book) => book.price,
   },
   {
-    column: "AVAILABILITY(book)",
+    column: "AVAILABILITY",
     type: String,
+    align: "center",
+    width: 20,
     value: (book) => book.availability,
-  },
-];
-console.log(__dirname);
-
-const HEADER = [
-  {
-    value: "PRODUCT(book)",
-  },
-  {
-    value: "PRICE",
-  },
-  {
-    value: "AVAILABILITY(book)",
   },
 ];
